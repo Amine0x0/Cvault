@@ -8,5 +8,6 @@ int main(){
 
         r = cv_getrights("./main.c");
         printf("current rights: %d %d %d %d\n", r.is_executable, r.is_exist, r.is_readable, r.is_writeable);
+        cv_isroot();
     }
 }

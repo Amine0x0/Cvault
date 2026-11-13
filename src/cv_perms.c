@@ -4,6 +4,7 @@
 #include <fcntl.h>
 #include <sys/syscall.h>
 #include <string.h>
+#include <sys/types.h>
 
 t_file_rights cv_getrights(const char *filepath){
     t_file_rights rights;
@@ -35,4 +36,11 @@ t_file_rights cv_getrights(const char *filepath){
             rights.is_writeable = 1;
     }
     return rights; 
+}
+
+int cv_isroot(){
+    if (!geteuid())
+        return (cv_log("user is root.\n", LOG_VERBOSE, 0), 1);
+    else
+        return (cv_log("user_is no root.\n", LOG_VERBOSE, 0), 0);
 }

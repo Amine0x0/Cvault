@@ -4,7 +4,7 @@ CFLAGS     = -std=gnu11 -Wall -Wextra -Werror -Wpedantic \
              -fstack-protector-strong \
              -fPIC \
              -D_FORTIFY_SOURCE=2 \
-             -O2 -Iinclude
+             -O2 -Iinclude -g3
 
 SRC_DIR    = src
 OBJ_DIR    = obj
