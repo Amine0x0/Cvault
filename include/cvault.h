@@ -50,7 +50,10 @@ t_file_rights cv_getrights(const char *filepath);
 void cv_log(const char *msg, e_log_mode mode, int fd);
 int cv_isroot();
 int cv_createfile(const char* filepath, int isStartHome);
+char *cv_expand_home_path(const char *path);
 char* cv_getfilecontent(const char* filepath);
+void cv_dump_memory(const unsigned char *memory, size_t length, int fd);
 t_netcontext *cv_netrecon(void);
+char** cv_getdirfiles(const char *dirpath);
 
 #endif

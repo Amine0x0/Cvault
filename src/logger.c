@@ -3,6 +3,8 @@
 #include <unistd.h>
 
 void cv_log(const char *msg, e_log_mode mode, int fd){
+    if (!msg)
+        return ;
     ssize_t bytes = 0;
     switch (mode)
     {
