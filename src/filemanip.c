@@ -12,6 +12,7 @@ int cv_createfile(const char* filepath, int isStartHome) {
     }
     char *fullpath = NULL;
     const char *target_path = filepath;
+    
     if (isStartHome) {
         const char* homedir = getenv("HOME");
         if (!homedir) {
@@ -37,11 +38,45 @@ int cv_createfile(const char* filepath, int isStartHome) {
         }
         target_path = fullpath;
     }
-    FILE *file = fopen(target_path, "w");
+
+    int fd = open(target_path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     free(fullpath);
-    if (!file) {
-        return -1;
+    
+    return fd;
+}
+
+char* cv_getfilecontent(const char* filepath){
+    t_file_rights rights;
+    rights = cv_getrights(filepath);
+    if (rights.is_exist && rights.is_readable){
+        FILE *file = fopen(filepath, "rb");
+        if (!file)
+            return NULL;
+
+        if (fseek(file, 0, SEEK_END) != 0) {
+            fclose(file);
+            return NULL;
+        }
+        long size = ftell(file);
+        if (size < 0) {
+            fclose(file);
+            return NULL;
+        }
+        rewind(file);
+        char *buffer = malloc(size + 1);
+        if (!buffer) {
+            fclose(file);
+            return NULL;
+        }
+        size_t bytes_read = fread(buffer, 1, size, file);
+        if (bytes_read != (size_t)size) {
+            free(buffer);
+            fclose(file);
+            return NULL;
+        }
+        buffer[size] = '\0';
+        fclose(file);
+        return buffer;
     }
-    fclose(file);
-    return 0;
+    return NULL;
 }
