@@ -31,7 +31,7 @@ t_file_rights cv_getrights(const char *filepath){
 
     {
         int status = access(filepath, W_OK);
-        if (status != 1)
+        if (status != -1)
             rights.is_writeable = 1;
     }
     return rights; 
