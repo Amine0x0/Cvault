@@ -1,8 +1,10 @@
 #include "../include/cvault.h"
 
-void _ok(){
+int _ok(){
     const char *buf = "ok.";
     ssize_t bytes = write(STDOUT_FILENO, buf, 3);
+    if (bytes <= 0)
+        return 0;
     (void)bytes;
-    return;   
+    return 1;   
 }
