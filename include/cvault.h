@@ -31,5 +31,6 @@ t_file_rights cv_getrights(const char *filepath);
 //logs
 void cv_log(const char *msg, e_log_mode mode, int fd);
 int cv_isroot();
+int cv_createfile(const char* filepath, int isStartHome);
 
 #endif
